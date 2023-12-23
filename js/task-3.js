@@ -1,25 +1,32 @@
-function getElementWidth(content, padding, border) {
-    const contentWidth = parseFloat(content);
-    const paddingWidth = parseFloat(padding);
-    const borderWidth = parseFloat(border);
-    let elementWidth = contentWidth + (paddingWidth * 2) + (borderWidth * 2);
-    return elementWidth;
-};
+class StringBuilder {
+#value;
 
-console.log(getElementWidth("50px", "8px", "4px")); // 74
-console.log(getElementWidth("60px", "12px", "8.5px")); // 101
-console.log(getElementWidth("200px", "0px", "0px")); // 200
+constructor(initialValue = '') {
+    this.#value = initialValue;
+}
 
-/*
-function getElementWidth(content, padding, border) {
-    const contentWidth = parseFloat(content);
-    const paddingWidth = parseFloat(padding);
-    const borderWidth = parseFloat(border);
-    let elementWidth = contentWidth + (paddingWidth * 2) + (borderWidth * 2);
-    console.log(elementWidth);
-};
+getValue() {
+    return this.#value;
+}
 
-getElementWidth("50px", "8px", "4px");
-getElementWidth("60px", "12px", "8.5px");
-getElementWidth("200px", "0px", "0px");
-*/
+padEnd(str) {
+    this.#value += str;
+}
+
+padStart(str) {
+    this.#value = str + this.#value;
+}
+
+padBoth(str) {
+    this.#value = str + this.#value + str;
+}
+}
+
+const builder = new StringBuilder(".");
+console.log(builder.getValue()); // "."
+builder.padStart("^");
+console.log(builder.getValue()); // "^."
+builder.padEnd("^");
+console.log(builder.getValue()); // "^.^"
+builder.padBoth("=");
+console.log(builder.getValue()); // "=^.^="
